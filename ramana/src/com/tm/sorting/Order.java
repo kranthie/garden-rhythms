@@ -1,5 +1,6 @@
 package com.tm.sorting;
 
+import java.lang.reflect.Array;
 import java.util.Comparator;
 
 public class Order {
@@ -46,6 +47,46 @@ public class Order {
         }
     }
 
+    public static <T> void mergeSort(T[] array, Comparator<T> comparator) {
+        System.arraycopy(mergeSort(array, 0, array.length - 1, comparator), 0, array, 0, array.length);
+    }
+
+    public static <T> T[] mergeSort(T[] array, int start, int end, Comparator<T> comparator) {
+        if (start >= end) {
+            T[] result = (T[]) Array.newInstance(array[0].getClass(), 1);
+            result[0] = array[start];
+            return result;
+        }
+        int mid = (start + end) / 2;
+        return merge(mergeSort(array, start, mid, comparator), mergeSort(array, mid + 1, end, comparator), comparator);
+    }
+
+    public static <T> T[] merge(T[] a, T[] b, Comparator<T> comparator) {
+        if (a.length == 0)
+            return b;
+        if (b.length == 0)
+            return a;
+        T[] result = (T[]) Array.newInstance(a[0].getClass(), a.length + b.length);
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (true) {
+            if (comparator.compare(a[i], b[j]) > 0) {
+                result[k++] = b[j++];
+                if (j == b.length) {
+                    System.arraycopy(a, i, result, k, a.length - i);
+                    return result;
+                }
+            } else {
+                result[k++] = a[i++];
+                if (i == a.length) {
+                    System.arraycopy(b, j, result, k, b.length - j);
+                    return result;
+                }
+            }
+        }
+    }
+
     private static <T> void swap(T[] array, int i, int j) {
         T temp = array[i];
         array[i] = array[j];
@@ -59,7 +100,8 @@ public class Order {
             b[i] = new Integer(a[i]);
         // bubbleSort(b, intComparator);
         // selectionSort(b, intComparator);
-        insertionSort(b, intComparator);
+        // insertionSort(b, intComparator);
+        mergeSort(b, intComparator);
         for (Integer i : b)
             System.out.println(i);
     }
