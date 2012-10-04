@@ -10,15 +10,16 @@ namespace TopMonkeys.AlgoStuff
 			for (int i = 0; i < list.Count; i++)
 			{
 				int minIndex = i;
-				for (int j = i + 1; j < list.Count; j++) {
-					if( comparer.Compare(list[j], list[minIndex]) > 0)
+				for (int j = i + 1; j < list.Count; j++)
+				{
+					if (comparer.Compare (list [j], list [minIndex]) < 0)
 					{
 						minIndex = j;
 					}
 				}
-				if( minIndex != i)
+				if (minIndex != i)
 				{
-					Swap(list, i, minIndex);
+					Swap (list, i, minIndex);
 				}
 			}
 			return list;
@@ -26,9 +27,9 @@ namespace TopMonkeys.AlgoStuff
 
 		private static void Swap (List<T> list, int i, int j)
 		{
-			T temp = list[i];
-			list[i] = list[j];
-			list[j] = temp;
+			T temp = list [i];
+			list [i] = list [j];
+			list [j] = temp;
 		}
 	}
 }
