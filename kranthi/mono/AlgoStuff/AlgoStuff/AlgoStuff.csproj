@@ -2,15 +2,16 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{60A0CB7D-8AE6-4861-BEE9-61439D3CB116}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>TopMonkeys.AlgoStuff.Test</RootNamespace>
-    <AssemblyName>AlgoStuffTest</AssemblyName>
+    <ProjectGuid>{758CDAE1-E3C5-4D26-976B-8E6533509D4C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TopMonkeys.AlgoStuff</RootNamespace>
+    <AssemblyName>AlgoStuff</AssemblyName>
+    <StartupObject>TopMonkeys.AlgoStuff.MainClass</StartupObject>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -18,30 +19,27 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <PlatformTarget>x86</PlatformTarget>
+    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <PlatformTarget>x86</PlatformTarget>
+    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SortingTest.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="InsertionSort.cs" />
+    <Compile Include="BubbleSort.cs" />
+    <Compile Include="SelectionSort.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\AlgoStuff\AlgoStuff.csproj">
-      <Project>{758CDAE1-E3C5-4D26-976B-8E6533509D4C}</Project>
-      <Name>AlgoStuff</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
