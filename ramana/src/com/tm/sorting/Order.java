@@ -4,12 +4,6 @@ import java.lang.reflect.Array;
 import java.util.Comparator;
 
 public class Order {
-    private static Comparator<Integer> intComparator = new Comparator<Integer>() {
-        public int compare(Integer o1, Integer o2) {
-            return o1 - o2;
-        }
-    };
-
     public static <T> void bubbleSort(T[] array, Comparator<T> comparator) {
         boolean sorted = false;
         while (!sorted) {
@@ -93,16 +87,4 @@ public class Order {
         array[j] = temp;
     }
 
-    public static void main(String[] args) {
-        int[] a = { 3, 7, 2, 1, 9, 4, 5, 10, 8, 6 };
-        Integer[] b = new Integer[a.length];
-        for (int i = 0; i < a.length; i++)
-            b[i] = new Integer(a[i]);
-        // bubbleSort(b, intComparator);
-        // selectionSort(b, intComparator);
-        // insertionSort(b, intComparator);
-        mergeSort(b, intComparator);
-        for (Integer i : b)
-            System.out.println(i);
-    }
 }
