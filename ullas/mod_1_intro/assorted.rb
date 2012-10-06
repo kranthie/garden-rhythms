@@ -62,4 +62,22 @@ class Array
     sorted += r if not r.empty?
     sorted
   end
+
+  def qsort(array=self)
+    return array if array.size <= 1
+    a = array.dup
+    p =  rand(a.size)
+    pivot = a[p]
+    a.delete_at(p)
+    left, right = Array.new, Array.new
+    a.each do
+      |x|
+      if x <= pivot
+        left << x
+      else
+        right << x
+      end
+    end
+    qsort(left) + [pivot] + qsort(right)
+  end
 end
