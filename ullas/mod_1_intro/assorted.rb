@@ -41,8 +41,25 @@ class Array
       end
     end
     sorted
-end
+  end
   
-  def merge_sort
+  def merge_sort(array=self)
+    return array if array.size == 1 or array.empty?
+    left = merge_sort(array[0...array.size/2])
+    right = merge_sort(array[array.size/2...array.size])
+    merge(left, right)
+  end
+  def merge(left, right)
+    l, r, sorted = left.dup, right.dup, []
+    while not l.empty? and not r.empty? do
+      if l[0] <= r[0]
+        sorted << l.shift
+      else
+        sorted << r.shift
+      end
+    end
+    sorted += l if not l.empty?
+    sorted += r if not r.empty?
+    sorted
   end
 end

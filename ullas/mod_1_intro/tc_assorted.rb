@@ -25,4 +25,12 @@ class TestSort < Test::Unit::TestCase
     assert_equal([1,2,3], [2,1,3].insertion_sort)
     assert_equal([1,2,2,3], [2,1,2,3].insertion_sort)
   end
+
+  def test_merge_sort
+    assert_equal([], [].merge_sort)
+    assert_equal([1], [1].merge_sort)
+    assert_equal([1,2], [1,2].merge_sort)
+    assert_equal([1,2,3], [2,1,3].merge_sort)
+    assert_equal([1,2,2,3], [2,1,2,3].merge_sort)
+  end
 end
