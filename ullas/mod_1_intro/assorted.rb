@@ -28,4 +28,21 @@ class Array
     end
     sorted
   end
+
+  def insertion_sort
+    sorted = self.dup
+    sorted.each_index do
+      |i|
+      i.downto(1) do
+        |j|
+        if sorted[j] < sorted[j-1]
+          sorted[j], sorted[j-1] = sorted[j-1], sorted[j]
+        end
+      end
+    end
+    sorted
+end
+  
+  def merge_sort
+  end
 end
