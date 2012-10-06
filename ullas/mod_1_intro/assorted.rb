@@ -12,4 +12,20 @@ class Array
     end
     sorted
   end
+
+  def selection_sort
+    sorted = self.dup
+    0.upto(sorted.length-1) do
+      |i|
+      min = sorted[i]
+      i.upto(sorted.length-1) do
+        |j|
+        if min > sorted[j]
+          min, sorted[j] = sorted[j], min
+        end
+      end
+      sorted[i] = min
+    end
+    sorted
+  end
 end
