@@ -81,6 +81,46 @@ public class Order {
         }
     }
 
+    public static <T> void heapSort(T[] array, Comparator<T> comparator) {
+        buildMinHeap(array, comparator);
+        T[] result = (T[]) Array.newInstance(array[0].getClass(), array.length);
+        int temp = array.length;
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[0];
+            swap(array, 0, temp - 1);
+            temp--;
+            minHeapify(array, 0, comparator, temp);
+        }
+        System.arraycopy(result, 0, array, 0, array.length);
+    }
+
+    public static <T> void minHeapify(T[] array, int i, Comparator<T> comparator, int len) {
+        int l = left(i);
+        int r = right(i);
+        int largest = i;
+        if (l < len && comparator.compare(array[i], array[l]) > 0)
+            largest = l;
+        if (r < len && comparator.compare(array[largest], array[r]) > 0)
+            largest = r;
+        if (i != largest) {
+            swap(array, i, largest);
+            minHeapify(array, largest, comparator, len);
+        }
+    }
+
+    public static <T> void buildMinHeap(T[] array, Comparator<T> comparator) {
+        for (int i = array.length / 2 - 1; i >= 0; i--)
+            minHeapify(array, i, comparator, array.length);
+    }
+
+    private static int left(int i) {
+        return 2 * i + 1;
+    }
+
+    private static int right(int i) {
+        return 2 * i + 2;
+    }
+
     private static <T> void swap(T[] array, int i, int j) {
         T temp = array[i];
         array[i] = array[j];
