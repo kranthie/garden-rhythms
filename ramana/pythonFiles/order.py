@@ -60,6 +60,42 @@ def merge(a, b, compare):
         c.extend(b[j:])
         break
   return c
+
+def heapSort(array, compare):
+  result = []
+  buildHeap(array, compare)
+  size = len(array)
+  for i in range(size):
+    result.append(array[0])
+    size -= 1
+    swap(array, 0, size)
+    heapify(array, 0, compare, size)
+  del(array[:])
+  array.extend(result)
+
+def buildHeap(array, compare):
+  size = len(array)
+  for i in range(size / 2 - 1, -1, -1):
+    heapify(array, i, compare, size)
+
+def heapify(array, i, compare, size):
+  l = left(i)
+  r = right(i)
+  largest = i
+  if l < size and compare(array[i], array[l]) > 0:
+    largest = l
+  if r < size and compare(array[largest], array[r]) > 0:
+    largest = r
+  if i != largest:
+    swap(array, largest, i)
+    heapify(array, largest, compare, size)
+
+def left(i):
+  return 2*i + 1
+
+def right(i):
+  return 2*i + 2
+
 def swap(array, i, j):
   temp = array[i]
   array[i] = array[j]
@@ -69,7 +105,7 @@ def compare(i, j):
   return i - j
 
 a = [3, 7, 2, 5, 4, 8, 1, 9, 10, 6]
-mergeSort(a, compare)
+heapSort(a, compare)
 for i in a:
   print i
  
