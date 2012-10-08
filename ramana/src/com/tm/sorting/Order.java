@@ -82,35 +82,32 @@ public class Order {
     }
 
     public static <T> void heapSort(T[] array, Comparator<T> comparator) {
-        buildMinHeap(array, comparator);
-        T[] result = (T[]) Array.newInstance(array[0].getClass(), array.length);
-        int temp = array.length;
+        buildMaxHeap(array, comparator);
+        int hithertoUnsortedArrayLength = array.length;
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[0];
-            swap(array, 0, temp - 1);
-            temp--;
-            minHeapify(array, 0, comparator, temp);
+            hithertoUnsortedArrayLength--;
+swap(array, 0, hithertoUnsortedArrayLength);
+            maxHeapify(array, 0, comparator, hithertoUnsortedArrayLength);
         }
-        System.arraycopy(result, 0, array, 0, array.length);
     }
 
-    public static <T> void minHeapify(T[] array, int i, Comparator<T> comparator, int len) {
+    public static <T> void maxHeapify(T[] array, int i, Comparator<T> comparator, int len) {
         int l = left(i);
         int r = right(i);
-        int largest = i;
-        if (l < len && comparator.compare(array[i], array[l]) > 0)
-            largest = l;
-        if (r < len && comparator.compare(array[largest], array[r]) > 0)
-            largest = r;
-        if (i != largest) {
-            swap(array, i, largest);
-            minHeapify(array, largest, comparator, len);
+        int smallest = i;
+        if (l < len && comparator.compare(array[i], array[l]) < 0)
+            smallest = l;
+        if (r < len && comparator.compare(array[smallest], array[r]) < 0)
+            smallest = r;
+        if (i != smallest) {
+            swap(array, i, smallest);
+            maxHeapify(array, smallest, comparator, len);
         }
     }
 
-    public static <T> void buildMinHeap(T[] array, Comparator<T> comparator) {
+    public static <T> void buildMaxHeap(T[] array, Comparator<T> comparator) {
         for (int i = array.length / 2 - 1; i >= 0; i--)
-            minHeapify(array, i, comparator, array.length);
+            maxHeapify(array, i, comparator, array.length);
     }
 
     private static int left(int i) {
