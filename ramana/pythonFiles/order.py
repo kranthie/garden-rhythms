@@ -62,16 +62,12 @@ def merge(a, b, compare):
   return c
 
 def heapSort(array, compare):
-  result = []
   buildHeap(array, compare)
   size = len(array)
   for i in range(size):
-    result.append(array[0])
     size -= 1
     swap(array, 0, size)
     heapify(array, 0, compare, size)
-  del(array[:])
-  array.extend(result)
 
 def buildHeap(array, compare):
   size = len(array)
@@ -81,14 +77,14 @@ def buildHeap(array, compare):
 def heapify(array, i, compare, size):
   l = left(i)
   r = right(i)
-  largest = i
-  if l < size and compare(array[i], array[l]) > 0:
-    largest = l
-  if r < size and compare(array[largest], array[r]) > 0:
-    largest = r
-  if i != largest:
-    swap(array, largest, i)
-    heapify(array, largest, compare, size)
+  smallest = i
+  if l < size and compare(array[i], array[l]) < 0:
+    smallest = l
+  if r < size and compare(array[smallest], array[r]) < 0:
+    smallest = r
+  if i != smallest:
+    swap(array, smallest, i)
+    heapify(array, smallest, compare, size)
 
 def left(i):
   return 2*i + 1
