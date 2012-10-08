@@ -31,7 +31,7 @@ public class OrderTest {
     }
 
     @Test
-    public void testselectionSort() {
+    public void testSelectionSort() {
         setUp();
         Order.selectionSort(b, intComparator);
         for (int i = 0; i < b.length; i++)
@@ -39,7 +39,7 @@ public class OrderTest {
     }
 
     @Test
-    public void testinsertionSort() {
+    public void testInsertionSort() {
         setUp();
         Order.insertionSort(b, intComparator);
         for (int i = 0; i < b.length; i++)
@@ -47,10 +47,19 @@ public class OrderTest {
     }
 
     @Test
-    public void testmergeSort() {
+    public void testMergeSort() {
         setUp();
         Order.mergeSort(b, intComparator);
         for (int i = 0; i < b.length; i++)
             assertEquals(b[i].intValue(), i + 1);
     }
+
+    @Test
+    public void testHeapSort() {
+        setUp();
+        Order.heapSort(b, intComparator);
+        for (int i = 0; i < b.length; i++)
+            assertEquals(b[i].intValue(), i + 1);
+    }
+
 }
