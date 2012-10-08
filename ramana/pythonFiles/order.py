@@ -100,12 +100,3 @@ def swap(array, i, j):
   temp = array[i]
   array[i] = array[j]
   array[j] = temp
-
-def compare(i, j):
-  return i - j
-
-a = [3, 7, 2, 5, 4, 8, 1, 9, 10, 6]
-heapSort(a, compare)
-for i in a:
-  print i
- 
