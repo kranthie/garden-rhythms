@@ -62,4 +62,12 @@ public class OrderTest {
             assertEquals(b[i].intValue(), i + 1);
     }
 
+    @Test
+    public void testQuickSort() {
+        setUp();
+        Order.quickSort(b, intComparator);
+        for (int i = 0; i < b.length; i++)
+            assertEquals(b[i].intValue(), i + 1);
+    }
+
 }

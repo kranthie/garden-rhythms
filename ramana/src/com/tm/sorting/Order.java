@@ -86,7 +86,7 @@ public class Order {
         int hithertoUnsortedArrayLength = array.length;
         for (int i = 0; i < array.length; i++) {
             hithertoUnsortedArrayLength--;
-swap(array, 0, hithertoUnsortedArrayLength);
+            swap(array, 0, hithertoUnsortedArrayLength);
             maxHeapify(array, 0, comparator, hithertoUnsortedArrayLength);
         }
     }
@@ -116,6 +116,31 @@ swap(array, 0, hithertoUnsortedArrayLength);
 
     private static int right(int i) {
         return 2 * i + 2;
+    }
+
+    public static <T> void quickSort(T[] array, Comparator<T> comparator) {
+        quickSort(array, 0, array.length - 1, comparator);
+    }
+
+    public static <T> void quickSort(T[] array, int start, int end, Comparator<T> comparator) {
+        if (start >= end)
+            return;
+        int p = partition(array, start, end, comparator);
+        quickSort(array, start, p - 1, comparator);
+        quickSort(array, p + 1, end, comparator);
+    }
+
+    public static <T> int partition(T[] array, int start, int end, Comparator<T> comparator) {
+        int p = start - 1;
+        for (int i = start; i < end; i++) {
+            if (comparator.compare(array[i], array[end]) < 0) {
+                p++;
+                swap(array, p, i);
+            }
+        }
+        p++;
+        swap(array, p, end);
+        return p;
     }
 
     private static <T> void swap(T[] array, int i, int j) {
