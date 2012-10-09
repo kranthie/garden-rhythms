@@ -28,6 +28,10 @@ class TestSortingFunctions(unittest.TestCase):
     order.heapSort(self.a, self.compare)
     self.assertEqual(self.a, range(1, 11))
 
+  def testQuickSort(self):
+    order.quickSort(self.a, self.compare)
+    self.assertEqual(self.a, range(1, 11))
+
 if __name__ == '__main__':
   unittest.main()
  
