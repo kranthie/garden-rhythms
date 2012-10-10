@@ -61,6 +61,19 @@ def merge(a, b, compare):
         break
   return c
 
+def mergeMultipleSortedArrays(arrays, compare):
+  size = len(arrays)
+  while size > 1:
+    temp = []
+    for i in range(1, size, 2):
+      temp.append(merge(arrays[i-1], arrays[i], compare))
+    if size%2 == 1:
+      temp.append(arrays[size-1])
+    arrays = []
+    arrays.extend(temp)
+    size = len(arrays)
+  return arrays[0]
+
 def heapSort(array, compare):
   buildHeap(array, compare)
   size = len(array)
