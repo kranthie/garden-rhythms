@@ -1,0 +1,23 @@
+In chapter 2, the first program that they tackle with is insertion sort.  I am thoroughly impressed with their pseudo code and hence this brief note.  I converted the pseudo code into Python effortlessly.  Then, I compared it against my code.  First of all, I took more lines to code it.  I do not consider writing a few extra lines much of a cardinal sin.  However, because of the unnecessary usage of the swap method, I ended up having three times more assignments.  Let us look at their code:
+def insertionSort (a):
+ for j in range(1, len(a)):#No biggy.
+  key=a[j]#This allowed them to reduce the number of assignments.
+  #Insert a[j] into the sorted sequence a[1. . j-1]. 
+  i=j-1
+  while i>=0 and a[i]>key:#They took care of two conditions in one shot.  
+   a[i+1]=a[i]#See no swapping is necessary.
+   i=i-1
+  a[i+1]=key
+
+Let us now look at my code:
+def insertionSort(array, compare):
+  l = len(array)#Perhaps, unnecessary optimization made me add this line.
+  for i in range(1, l):#By the way, "l" is a bad name for variables.
+    sortedUpTo = i-1
+    if compare(array[i-1], array[i]) > 0:#One of the two comparisons that they did in their while loop.
+      swap(array, i, sortedUpTo)#First ugly swap!
+      for j in range(sortedUpTo, 0, -1):#The second condition (>=0) is checked here.
+        if compare(array[j-1], array[j]) <= 0:#Did similar thing three lines ago!
+          break
+        else:
+          swap(array, j, j-1)#Ugliness continued!
