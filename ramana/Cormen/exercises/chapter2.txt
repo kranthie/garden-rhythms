@@ -140,5 +140,7 @@ put sequence need to be checked on the average, assuming that the element being
 searched for is equally likely to be any element in the array? How about in the 
 worst case? What are the average-case and worst-case running times of linear 
 search in \Theta-notation? Justify your answers.
+a. Each element of the equal chance of matching v.  Consequently, the probability equals 1/n.  The cost will be 1/n if the first element matches.  However, the cost 2/n if it happens to be the second element.  If it turns out to be n-th element, the cost will be 1.  Strictly speaking n-1/n since we need not make a comparison for the last element if we are sure that v exists in a.Ignoring that special case, we can say that the total cost equals (1/n) * n * (n+1)/2 = (n+1)/2.  This is the average case.  The worst case equals n-1.  Consequently, theta((n+1)/2) and theta(n-1) equal theta(n).
 2.2-4
 How can we modify almost any algorithm to have a good best-case running time?
+a. One way is to implement the algorithm as a basic operation at the OS level.  
