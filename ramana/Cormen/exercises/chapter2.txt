@@ -100,3 +100,45 @@ add(a, b)
  if c[0] == -1:
   return subarray(c, 1)
  return c
+
+2.2-1
+Express the function n^{3}/1000-100n^{2}-100n+3 in terms of O-notation.
+a. \theta(n^3)
+2.2-2
+Consider sorting n numbers stored in array A by first finding the smallest 
+element of A and exchanging it with the element in A[1]. Then find the second 
+smallest element of A, and exchange it with A[2]. Continue in this manner for 
+the first n-1 elements of A. Write pseudocode for this algorithm, which is known
+as selection sort. What loop invariant does this algorithm maintain? Why does it
+need to run for only the first n-1 elements, rather than for all n elements? Give
+the best-case and worst-case running times of selection sort in O-notation.
+a. Let us start with the code:
+def selectionSort(array, compare):
+  l = len(array)
+  for i in range(l-1):#Last element can be skipped since there is one element and it is trivially true that it is the minimum.
+    minIndex = min(array, i)
+    swap(array, minIndex, i)
+
+def min(array, i):
+  minIndex = i
+  for j in range(i+1, l):
+    if compare(array[minIndex], array[j]) > 0:
+      minIndex = j
+  return j
+
+1. Pre-condition: The invariant is the array up to i is sorted.  In the beginning, this array of sorted elements is empty.
+2. Maintenance: After every iteration of the loop, one more element is added to the sorted array.  This is the next smallest element array.  Consequently, still the array up to i is sorted.
+3. Post-condition: Loop terminates when i equals the length.  At this point, the entire array is sorted.
+
+We can skip the last element because it is trivially the minimum of the remaining elements.
+
+The min function is called n-1 times.  First time, the min function makes n-1 comparisons.  Second time, it makes n-2 comparisons.  ...  All the way down to 1 time.  In other words, total number of comparisons that take place here  equal (n*(n-1))/2.  Obviously, the above is theta(n^2).  This is the worst case running time.  This is also the average case running time since the algorithm does not make use of the information whether the array has some sorted elements.  In fact, even the best case running time also equals theta(n^2).
+
+2.2-3
+Consider linear search again (see Exercise 2.1-3). How many elements of the in- 
+put sequence need to be checked on the average, assuming that the element being 
+searched for is equally likely to be any element in the array? How about in the 
+worst case? What are the average-case and worst-case running times of linear 
+search in \Theta-notation? Justify your answers.
+2.2-4
+How can we modify almost any algorithm to have a good best-case running time?
