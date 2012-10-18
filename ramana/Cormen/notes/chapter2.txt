@@ -21,3 +21,59 @@ def insertionSort(array, compare):
           break
         else:
           swap(array, j, j-1)#Ugliness continued!
+
+The code for merging  is interesting but not as impressive as the code for insertion sort.  First of all, they take too many lines to merge it.  
+
+Secondly, they use a sentinel \infty for subarrays.  In my view, it is a pain to identify a sentinel in a language like Python.  Even in Java, Integer.MAX_VALUE can be used as a sentinel but the original array should not contain Integer.MAX_VALUE.  Perhaps, we can find an element that is bigger than all the elements given in the original array.  That is what I did in the following program which is converted from their pseudo code.  Finding such a max element takes O(n) time.  Consequently, overall complexity does not increase.  There is one thing beautiful about these sentinels.  In the third loop below, you will end up comparing the sentinel of one subarray against some of the elements the other subarray eventually.  However, you will never reach the point where both the sentinels are compared with one another.  Consequently, they can get away with "<=" instead of "<".  
+
+The third thing that does not seem to be that beautiful is that they pass one single array which contains two sorted subarrays adjacent to each other.  I wonder whether it is more useful to pass separate subarrays.  Especially, it may be of some use when we get sorted subarrays from different machines or different programs.
+
+def merge(a, p, q, r):
+ max = 100
+ n1 = q-p+1
+ n2 = r-q
+ l = []
+ r = []
+ for i in range(n1):
+  l.append(a[p+i])
+ for j in range(n2):
+  r.append(a[q+j+1])
+ l.append(max)
+ r.append(max)
+ i=0
+ j=0
+ for k in range(n1+n2):
+  if l[i]<= r[j]:
+   a[p+k]=l[i]
+   i=i+1
+  else: 
+   a[p+k]=r[j]
+   j=j+1
+
+a = [1, 7, 9, 10, 2, 3, 4, 5, 6, 8]
+merge(a, 0, 3, 9)
+for i in a:
+ print i
+
+By the way, here is my program for merging:
+def merge(a, b, compare):
+  la = len(a)
+  lb = len(b)
+  c = []
+  i = 0
+  j = 0
+  while (True):
+    if compare(a[i], b[j]) > 0:
+      c.append(b[j])
+      j = j + 1
+      if j == lb:
+        c.extend(a[i:])
+        break
+    else:
+      c.append(a[i])
+      i = i + 1
+      if i == la:
+        c.extend(b[j:])
+        break
+  return c
+
