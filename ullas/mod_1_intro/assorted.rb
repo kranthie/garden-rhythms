@@ -80,4 +80,39 @@ class Array
     end
     qsort(left) + [pivot] + qsort(right)
   end
+  
+  # Helper functions for heap-sort
+  def parent(i)
+    i/2
+  end
+  def left(i)
+    i==0? 1 : (2*i - 1)
+  end
+  def right(i)
+    i==0? 2 : 2*i
+  end
+  def max_heapify!(i)
+    l, r = left(i), right(i)
+    largest = (l <= (self.size-1) && self[l] > self[i])? l : i
+    largest = r if r <= (self.size-1) && self[r] > self[largest]
+    if largest != i
+      self[i], self[largest] = self[largest], self[i]
+      max_heapify!(largest)
+    end
+    self
+  end
+  def build_max_heap!()
+    ((self.size-1)/2).downto 0 do
+      |i|
+      max_heapify!(i)
+    end
+    self
+  end
+  def heapsort!()
+    self.build_max_heap!
+  end
 end
+
+puts [1,2,3,4].max_heapify!(0)
+
+
