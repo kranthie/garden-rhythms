@@ -2,7 +2,9 @@ package com.tm.sorting;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -68,6 +70,19 @@ public class OrderTest {
         Order.quickSort(b, intComparator);
         for (int i = 0; i < b.length; i++)
             assertEquals(b[i].intValue(), i + 1);
+    }
+
+    @Test
+    public void testMergeMultipleSortedArrays() {
+        List<Integer[]> arrays = new ArrayList<Integer[]>();
+        arrays.add(new Integer[] { 1, 6, 9, 23 });
+        arrays.add(new Integer[] { 2, 16, 19, 24, 25 });
+        arrays.add(new Integer[] { 4, 5, 12, 21, 22 });
+        arrays.add(new Integer[] { 3, 7, 11, 17, 18 });
+        arrays.add(new Integer[] { 8, 10, 13, 14, 15, 20 });
+        Integer[] a = Order.mergeMultipleSortedArrays(arrays, intComparator);
+        for (int i = 0; i < a.length; i++)
+            assertEquals(a[i].intValue(), i + 1);
     }
 
 }

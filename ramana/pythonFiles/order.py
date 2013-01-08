@@ -61,6 +61,19 @@ def merge(a, b, compare):
         break
   return c
 
+def mergeMultipleSortedArrays(arrays, compare):
+  size = len(arrays)
+  while size > 1:
+    temp = []
+    for i in range(1, size, 2):
+      temp.append(merge(arrays[i-1], arrays[i], compare))
+    if size%2 == 1:
+      temp.append(arrays[size-1])
+    arrays = []
+    arrays.extend(temp)
+    size = len(arrays)
+  return arrays[0]
+
 def heapSort(array, compare):
   buildHeap(array, compare)
   size = len(array)
@@ -91,6 +104,26 @@ def left(i):
 
 def right(i):
   return 2*i + 2
+
+def quickSort(array, compare):
+  quickSortInternal(array, 0, len(array)- 1, compare)
+
+def quickSortInternal(array, start, end, compare):
+  if start >= end:
+    return
+  p = partition(array, start, end, compare)
+  quickSortInternal(array, start, p-1, compare)
+  quickSortInternal(array, p+1, end, compare)
+
+def partition(array, start, end, compare):
+  p = start-1
+  for i in range(start, end):
+    if compare(array[i], array[end]) < 0:
+      p += 1
+      swap(array, i, p)
+  p += 1
+  swap(array, p, end)
+  return p
 
 def swap(array, i, j):
   temp = array[i]

@@ -1,0 +1,146 @@
+2.1-1
+Using Figure 2.2 as a model, illustrate the operation of INSERTION-SORT on the 
+array A=\{31,41,59,26,41,  58\rangle.
+a. The following steps are observed:
+1. In the beginning, we have the sorted array containing only 31.
+2. Added 41 to the sorted array.  We do not go through the while loop because 41 > 31.
+3. Similarly, added 59 to the sorted array.
+4. We need to go through the while loop.  We have the following sub-steps:
+4.1. We moved 59 ahead. In our sorted array, we have 31, 41, blank, 59.
+4.2. We move 41 ahead too and get 31, blank, 41, 59.
+4. 3. Finally, after one more move, we have blank, 31, 41, 59.
+We are out of while loop.  We insert 26 in the blank. We get 26, 31, 41, 59.
+5. We handle one more 41.  We have to go to while loop again.
+5.1. Move 59 ahead and we get 26, 31, 41, blank, 59.
+Out of the while loop.  We insert 41 in the blank and we get 26, 31, 41, 41, 59.
+6. Finally, we need to take care of 58.  One more visit to while loop.
+6.1. We move ahead 59 and we get 26, 31, 41, 41, blank 59.
+Out of the while loop.  We insert 58 in the blank and we get 26, 31, 41, 41, 58, 59.  All things got sorted out.  Life is just wonderful
+2.1-2
+Rewrite the INSERTION- SORT procedure to sort into non-increasing instead of non-decreasing order.
+a. Brilliant.  Only need to change one "greater than" sign to "less than" sign.
+def insertionSort (a):
+ for j in range(1, len(a)):
+  key=a[j]
+  #Insert A[j] into the sorted sequence A[1. . j-1]. 
+  i=j-1
+  while i>=0 and a[i]<key:
+   a[i+1]=a[i]
+   i=i-1
+  a[i+1]=key
+
+2.1-3
+Consider the searching problem:
+Input: A sequence of n numbers A=\{a_{1}, a_{2}, \ldots,  a_{n}\rangle and a 
+value v.
+Output: An index i such that v=A[i] or the special value NIL if v does not
+appear in A.
+Write pseudocode for linear search, which scans through the sequence, looking 
+for v. Using a loop invariant, prove that your algorithm is correct. Make sure 
+that your loop invariant fulfills the three necessary properties.
+a. The program looks like this:
+def linearSearch(a, v):
+ #Initial condition: v is not found in the i-1 elements of a (empty set).
+ for i in range(len(a)):
+  if a[i] == v:
+   return i
+  #If we happen to be here at the end of the i-th round of the loop, it is true that the first i-1 elements do not contain v.
+ #Outside the loop. The entire a does not contain v.
+ return -1
+
+I had to look up several things to understand loop invariant.  Started with Wikipedia article: 
+http://en.wikipedia.org/wiki/Loop_invariant  
+Could not get it fully.  Then, I found this web site (after googling for "Loop Invariant"): 
+http://www.cs.uofs.edu/~mccloske/courses/cmps144/invariants_lec.html
+Got better but not 100%.  Then, looked at this Stack Overflow page:
+http://stackoverflow.com/questions/3221577/what-is-a-loop-invariant
+  No improvement.  Then, searched in desperation for "loop invarient linear search" and found this one:
+http://stackoverflow.com/questions/5585020/loop-invariant-of-linear-search
+The above lead me to this:
+http://www4.ncsu.edu/~aszanto/MA522/HW1Sol.pdf
+At last, attained total nirvana!  Did I?  Let me write down what I learned about linear search:
+1. Pre-condition: The invariant is that we searched for v in the array up to i-th element but not including i-th element and found no match.  This is trivially true before the loop starts since the list of elements searched so far in the given array is empty.
+2. Maintenance: At the end of every iteration, Invarient holds since comparison took place only with i-th element.  Even if we find a match here (I.E. a[i] == v), all the elements up to i-1 do not contain v.
+3. Post-condition: After exiting the loop, we have one of the following two:
+a. The entire array that does not contain v.
+b. The list of elements up to  but not including i that does not contain v. 
+In either case, the invariant is true that we have the list of elements that does not contain v.
+
+Here is the solution from U-Man:
+1. Pre-condition: The invariant is that the index is either -1 (not found) or some value in the range 0 to n-1.  It is trivially true before the loop starts since we have an empty set.
+2. Maintenance: At the beginning of every iteration, the Invarient holds since comparison took place only with i-th element and i lies between 0 and n-1.  
+3. Post-condition: After exiting the loop, we have one of the following two:
+a. The entire array that does not contain v.  In this case, we return -1.
+b. The list of elements up to  but not including i that does not contain v.  In this case, we return i.
+In either case, the invariant is true that we return either -1 or some number greater than 0 and less then n.
+
+2.1-4
+Consider the problem of adding two n-bit binary integers, stored in two n-
+element arrays A and B. The sum of the two integers should be stored in binary 
+form in an (n+1)-element array C. State the problem formally and write pseudocode for 
+adding the two integers.
+a. In my view, the problem is already formally stated.  Add two binary numbers of length n.  Store the result in a new array of length n+1.
+add(a, b)
+ x = binaryOf(a)
+ y = binaryOf(b)
+ c = newArray(lengthOf(x))
+ c[0] = -1#We do not know yet whether it will have a meaningful value.
+ carryOver = 0
+ for i in range(n-1, -1, -1):
+  z = x[i] + y[i] + carryOver
+  if z > 1:
+   if z%2 == 0:
+    c[i+1] = 0
+   else:
+    c[i+1] = 1
+    z = z-1
+  else:
+   c[+1] = z
+  carryOver = z/2#Integer division
+ if c[0] == -1:
+  return subarray(c, 1)
+ return c
+
+2.2-1
+Express the function n^{3}/1000-100n^{2}-100n+3 in terms of O-notation.
+a. \theta(n^3)
+2.2-2
+Consider sorting n numbers stored in array A by first finding the smallest 
+element of A and exchanging it with the element in A[1]. Then find the second 
+smallest element of A, and exchange it with A[2]. Continue in this manner for 
+the first n-1 elements of A. Write pseudocode for this algorithm, which is known
+as selection sort. What loop invariant does this algorithm maintain? Why does it
+need to run for only the first n-1 elements, rather than for all n elements? Give
+the best-case and worst-case running times of selection sort in O-notation.
+a. Let us start with the code:
+def selectionSort(array, compare):
+  l = len(array)
+  for i in range(l-1):#Last element can be skipped since there is one element and it is trivially true that it is the minimum.
+    minIndex = min(array, i)
+    swap(array, minIndex, i)
+
+def min(array, i):
+  minIndex = i
+  for j in range(i+1, l):
+    if compare(array[minIndex], array[j]) > 0:
+      minIndex = j
+  return j
+
+1. Pre-condition: The invariant is the array up to i is sorted.  In the beginning, this array of sorted elements is empty.
+2. Maintenance: After every iteration of the loop, one more element is added to the sorted array.  This is the next smallest element array.  Consequently, still the array up to i is sorted.
+3. Post-condition: Loop terminates when i equals the length.  At this point, the entire array is sorted.
+
+We can skip the last element because it is trivially the minimum of the remaining elements.
+
+The min function is called n-1 times.  First time, the min function makes n-1 comparisons.  Second time, it makes n-2 comparisons.  ...  All the way down to 1 time.  In other words, total number of comparisons that take place here  equal (n*(n-1))/2.  Obviously, the above is theta(n^2).  This is the worst case running time.  This is also the average case running time since the algorithm does not make use of the information whether the array has some sorted elements.  In fact, even the best case running time also equals theta(n^2).
+
+2.2-3
+Consider linear search again (see Exercise 2.1-3). How many elements of the in- 
+put sequence need to be checked on the average, assuming that the element being 
+searched for is equally likely to be any element in the array? How about in the 
+worst case? What are the average-case and worst-case running times of linear 
+search in \Theta-notation? Justify your answers.
+a. Each element of the equal chance of matching v.  Consequently, the probability equals 1/n.  The cost will be 1/n if the first element matches.  However, the cost 2/n if it happens to be the second element.  If it turns out to be n-th element, the cost will be 1.  Strictly speaking n-1/n since we need not make a comparison for the last element if we are sure that v exists in a.Ignoring that special case, we can say that the total cost equals (1/n) * n * (n+1)/2 = (n+1)/2.  This is the average case.  The worst case equals n-1.  Consequently, theta((n+1)/2) and theta(n-1) equal theta(n).
+2.2-4
+How can we modify almost any algorithm to have a good best-case running time?
+a. One way is to implement the algorithm as a basic operation at the OS level.  

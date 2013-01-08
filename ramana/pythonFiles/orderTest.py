@@ -28,6 +28,20 @@ class TestSortingFunctions(unittest.TestCase):
     order.heapSort(self.a, self.compare)
     self.assertEqual(self.a, range(1, 11))
 
+  def testQuickSort(self):
+    order.quickSort(self.a, self.compare)
+    self.assertEqual(self.a, range(1, 11))
+
+  def testMergeMultipleSortedArrays(self):
+    arrays = []
+    arrays.append( [1, 6, 9, 23 ])
+    arrays.append([2, 16, 19, 24, 25 ])
+    arrays.append([4, 5, 12, 21, 22 ])
+    arrays.append([3, 7, 11, 17, 18 ])
+    arrays.append([8, 10, 13, 14, 15, 20 ])
+    arrays = order.mergeMultipleSortedArrays(arrays, self.compare)
+    self.assertEqual(arrays, range(1, 26))
+
 if __name__ == '__main__':
   unittest.main()
  

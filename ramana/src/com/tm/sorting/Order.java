@@ -1,7 +1,9 @@
 package com.tm.sorting;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class Order {
     public static <T> void bubbleSort(T[] array, Comparator<T> comparator) {
@@ -79,6 +81,22 @@ public class Order {
                 }
             }
         }
+    }
+
+    public static <T> T[] mergeMultipleSortedArrays(List<T[]> arrays, Comparator<T> comparator) {
+        int size = arrays.size();
+        while (size > 1) {
+            ArrayList<T[]> temp = new ArrayList<T[]>();
+            int i = 1;
+            for (; i < size; i += 2)
+                temp.add(merge(arrays.get(i - 1), arrays.get(i), comparator));
+            if (i == size)
+                temp.add(arrays.get(i - 1));
+            arrays.clear();
+            arrays = (List<T[]>) temp.clone();
+            size = arrays.size();
+        }
+        return arrays.get(0);
     }
 
     public static <T> void heapSort(T[] array, Comparator<T> comparator) {
