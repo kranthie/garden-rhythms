@@ -1,3 +1,5 @@
+import math
+
 class Node:
  def __init__(self):
   self.left = None
@@ -44,10 +46,30 @@ class BST:
    print x.data
    self.printIO(x.right)
 
+ def height(self, n):
+  if n is None:
+   return 0
+  l = self.height(n.left)
+  r = self.height(n.right)
+  if l > r:
+   return l+1
+  else:
+   return r+1
+
+ def isBalanced(self, n):
+  if n is None:
+   return True
+  if int(math.fabs(self.height(n.left) - self.height(n.right))) > 1:
+   return False
+  return self.isBalanced(n.left) and self.isBalanced(n.right)
 
 bst = BST()
 bst.insert(4)
 bst.insert(7)
 bst.insert(3)
-bst.printInOrder()
+bst.insert(1)
+bst.insert(0)
 
+bst.printInOrder()
+print bst.height(bst.root)
+print bst.isBalanced(bst.root)
