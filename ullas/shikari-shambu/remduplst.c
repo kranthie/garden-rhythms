@@ -11,9 +11,12 @@ void print_list(Node* head);
 
 int main(void)
 {
-  int a[] = {1, 1, 2, 1, 3};
-  Node* h = initialize_list(a, 5);
+  int a[] = {1, 1, 2, 1, 3, 1, 1, 0, 7, 8, 7};
+  Node* h = initialize_list(a, 11);
+  printf("Before:\n");
+  print_list(h);
   remove_dup_from_list(h);
+  printf("After:\n");
   print_list(h);
 
   return 0;
@@ -21,21 +24,19 @@ int main(void)
 
 Node* initialize_list(int ary[], int len)
 {
-  Node *n,*p, *head;
-  n = p = head = NULL;
+  Node *n,*prev;
+  n = prev = NULL;
 
   for (int i=0; i<len; ++i) {
     n = malloc(sizeof(Node));
 
-    if (n != NULL) {
-      if (!head) head = n;
-      if (p != NULL) p->next = n;
+    if(n) {
       n->data = ary[i];
-      n->next = NULL;
-      p = n;
+      n->next = prev;
+      prev = n;
     }
   }
-  return head;
+  return n;
 }
 
 Node* remove_dup_from_list(Node* head)
