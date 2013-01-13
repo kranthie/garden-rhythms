@@ -63,13 +63,55 @@ class BST:
    return False
   return self.isBalanced(n.left) and self.isBalanced(n.right)
 
+def sortedArrayToBst(a):
+ l = len(a)
+ if a > 0:
+  bst = BST()
+  bst.root = Node()
+  satbst(bst.root, a, 0, l-1)
+  return bst
+def satbst(n, a, low, high):
+ if low == high:
+  n.data = a[low]
+  return
+ m = (low+high)/2
+ n.data = a[m]
+ if m > low:
+  n.left = Node()
+  satbst(n.left, a, low, m-1)
+ if m < high:
+  n.right = Node()
+  satbst(n.right, a, m+1, high)
+
 bst = BST()
 bst.insert(4)
 bst.insert(7)
 bst.insert(3)
 bst.insert(1)
 bst.insert(0)
-
+print "Inserted 4, 7, 3, 1 and 0 into a BST."
+print "Printing in order"
 bst.printInOrder()
+print "Printing the height"
 print bst.height(bst.root)
+print "Printing whether or not the tree is balanced"
 print bst.isBalanced(bst.root)
+print "Inserting a sorted array and trying to obtain a reasonably balanced tree"
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+bst = sortedArrayToBst(a)
+print "Printing in order"
+bst.printInOrder()
+print "Level 1 (root)"
+print bst.root.data
+print "Level 2"
+print bst.root.left.data
+print bst.root.right.data
+print "Level 3"
+print bst.root.left.left.data
+print bst.root.left.right.data
+print bst.root.right.left.data
+print bst.root.right.right.data
+print "Level 4"
+print bst.root.left.right.right.data
+print bst.root.right.left.right.data
+print bst.root.right.right.right.data
