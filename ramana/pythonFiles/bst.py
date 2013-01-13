@@ -115,3 +115,64 @@ print "Level 4"
 print bst.root.left.right.right.data
 print bst.root.right.left.right.data
 print bst.root.right.right.right.data
+
+class Link:
+ def __init__(self):
+  self.next = None
+  self.data = None
+
+class LinkedList:
+ def __init__(self):
+  self.head = None
+
+ def insert(self, data):
+  l = Link()
+  l.data = data
+  l.next = self.head
+  self.head = l
+
+ def printLL(self):
+  x = self.head
+  while x is not None:
+   print x.data
+   x = x.next
+
+
+ll = LinkedList()
+ll.insert(4)
+ll.insert(5)
+ll.insert(7)
+ll.printLL()
+
+def bstToLinkedLists(t):
+ lls = []
+ ll = LinkedList()
+ ll.insert(t.root)
+ lls.append(ll)
+ i = 0
+ while i < len(lls):
+  treeEnded = True
+  x = LinkedList()
+  y = lls[i]
+  z = y.head
+  while z is not None:
+   if z.data.left is not None:
+    treeEnded = False
+    x.insert(z.data.left)
+   if z.data.right is not None:
+    treeEnded = False
+    x.insert(z.data.right)
+   z = z.next
+  if not treeEnded:
+   lls.append(x)
+  i = i+1
+ return lls
+
+lls = bstToLinkedLists(bst)
+print "Printing Linked Lists"
+for i in lls:
+ x = i.head
+ while x is not None:
+  print x.data.data,
+  x = x.next
+ print
