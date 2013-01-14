@@ -1,5 +1,26 @@
 import math
 
+class Link:
+ def __init__(self):
+  self.next = None
+  self.data = None
+
+class LinkedList:
+ def __init__(self):
+  self.head = None
+
+ def insert(self, data):
+  l = Link()
+  l.data = data
+  l.next = self.head
+  self.head = l
+
+ def printLL(self):
+  x = self.head
+  while x is not None:
+   print x.data
+   x = x.next
+
 class Node:
  def __init__(self):
   self.left = None
@@ -116,28 +137,7 @@ print bst.root.left.right.right.data
 print bst.root.right.left.right.data
 print bst.root.right.right.right.data
 
-class Link:
- def __init__(self):
-  self.next = None
-  self.data = None
-
-class LinkedList:
- def __init__(self):
-  self.head = None
-
- def insert(self, data):
-  l = Link()
-  l.data = data
-  l.next = self.head
-  self.head = l
-
- def printLL(self):
-  x = self.head
-  while x is not None:
-   print x.data
-   x = x.next
-
-
+print "Testing linked list"
 ll = LinkedList()
 ll.insert(4)
 ll.insert(5)
@@ -149,23 +149,20 @@ def bstToLinkedLists(t):
  ll = LinkedList()
  ll.insert(t.root)
  lls.append(ll)
- i = 0
- while i < len(lls):
-  treeEnded = True
+ while True:
   x = LinkedList()
-  y = lls[i]
+  y = lls[-1]
   z = y.head
   while z is not None:
    if z.data.left is not None:
-    treeEnded = False
     x.insert(z.data.left)
    if z.data.right is not None:
-    treeEnded = False
     x.insert(z.data.right)
    z = z.next
-  if not treeEnded:
+  if x.head is not None:
    lls.append(x)
-  i = i+1
+  else:
+   break
  return lls
 
 lls = bstToLinkedLists(bst)
