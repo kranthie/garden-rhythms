@@ -84,6 +84,28 @@ class BST:
    return False
   return self.isBalanced(n.left) and self.isBalanced(n.right)
 
+ def successor(self, n):
+  if n.right is not None:
+   x = n.right
+   while x.left is not None:
+    x = x.left
+   return x
+  if n == self.root:
+   return None
+  x = self.root
+  y = None
+  if x.data > n.data:
+   y = x.left
+  else:
+   y = x.right
+  while y != n:
+   x = y
+   if x.data > n.data:
+    y = x.left
+   else:
+    y = x.right
+  return x
+
 def sortedArrayToBst(a):
  l = len(a)
  if a > 0:
@@ -173,3 +195,6 @@ for i in lls:
   print x.data.data,
   x = x.next
  print
+
+print bst.successor(bst.root.left.left).data
+print bst.successor(bst.root).data
