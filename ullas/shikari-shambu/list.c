@@ -9,6 +9,7 @@ Node* remove_dup_from_list(Node* head);
 void rem_dup(Node* n);
 void print_list(Node* head);
 Node* nth_to_last(Node* head, int n);
+int delete_node(Node* n);
 
 int main(void)
 {
@@ -24,9 +25,23 @@ int main(void)
   printf("3rd from last: %d\n", (nth_to_last(h, 3))->data);
   printf("1st from last: %d\n", (nth_to_last(h, 1))->data);
 
+  if (delete_node(h->next) == 0)
+    print_list(h);
   return 0;
 }
 
+int delete_node(Node* n)
+{
+  //Can't delete the last node
+  if (n == NULL || n->next == NULL) return -1;
+  
+  // Copy stuff from the next node and delete that instead
+  Node* next = n->next;
+  n->data = next->data;
+  n->next = next->next;
+  free(next);
+  return 0;
+}
 Node* initialize_list(int ary[], int len)
 {
   Node *n,*prev;
@@ -95,7 +110,8 @@ void print_list(Node* head)
   Node* n = head;
 
   while(n) {
-    printf("%d\n", n->data);
+    printf("%d ", n->data);
     n = n->next;
   }
+  printf("\n");
 }
