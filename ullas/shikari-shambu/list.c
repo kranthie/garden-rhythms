@@ -10,6 +10,10 @@ void rem_dup(Node* n);
 void print_list(Node* head);
 Node* nth_to_last(Node* head, int n);
 int delete_node(Node* n);
+Node* rev(Node* head);
+Node* append(Node* head, int data);
+int delete_list(Node* head);
+Node* add_nums_as_list(Node* a, Node* b);
 
 int main(void)
 {
@@ -27,7 +31,75 @@ int main(void)
 
   if (delete_node(h->next) == 0)
     print_list(h);
+  printf("Reverse: \n");
+  h = rev(h);
+  print_list(h);
+  printf("\nSum: ");
+  print_list(add_nums_as_list(h, h->next));
   return 0;
+}
+
+Node* add_nums_as_list(Node* a, Node* b)
+{
+  Node *x, *y, *sum;
+  int carry, s, xdata, ydata;
+  sum = NULL;
+  x = a, y = b;
+  carry = s = xdata = ydata = 0;
+  while(x || y) {
+    if (x) xdata = x->data;
+    else xdata = 0;
+
+    if (y) ydata = y->data;
+    else ydata = 0;
+
+    s = xdata + ydata + carry;
+    if (s > 9) {
+      carry = s / 10;
+      s = s % 10;
+    }
+    sum = append(sum, s);
+    if(x) x = x->next;
+    if(y) y = y->next;
+  }
+  if (carry) sum = append(sum, carry);
+  return rev(sum);
+}
+
+Node* append(Node* head, int data)
+{
+  Node* n = malloc(sizeof(Node));
+  
+  n->data = data;
+  n->next = head;
+  return n;
+}
+
+int delete_list(Node* head)
+{
+  if (!head) return -1;
+  Node *n, *next;
+
+  n = head;
+  while(n) {
+    next = n->next;
+    free(n);
+    n = next;
+  }
+}
+
+Node* rev(Node* head)
+{
+  Node* cpy = NULL;
+  Node* n;
+
+  n = head;
+  while(n) {
+    cpy = append(cpy, n->data);
+    n = n->next;
+  }
+  delete_list(head);
+  return cpy;
 }
 
 int delete_node(Node* n)
