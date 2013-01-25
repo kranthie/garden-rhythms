@@ -216,3 +216,24 @@ def findLowestCommonAncestor(bst, n1, n2):
 print findLowestCommonAncestor(bst, bst.root.left, bst.root.right).data
 print findLowestCommonAncestor(bst, bst.root.left.left, bst.root.left.right).data
 
+
+def sum(n, d):
+ #print n.data,
+ #print d
+ if n.data == d:
+  print d
+  return d
+ x = n.data
+ if n.data > d:
+  n = n.left
+ else:
+  n = n.right
+ x += sum(n, d)
+ print x
+ return x
+
+def sumAllPaths(bst, d):
+ sum(bst.root, d)
+
+print "Printing sums of all paths"
+sumAllPaths(bst, 7)
