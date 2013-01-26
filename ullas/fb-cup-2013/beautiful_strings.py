@@ -21,7 +21,7 @@ def doIt(infile):
         for x in counts:
             sum += x*val
             val -= 1
-        print(sum)
+        print('Case #{0}: {1}'.format(i, sum))
 
 if __name__ == '__main__':
     doIt(sys.argv[1])
