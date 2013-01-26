@@ -10,21 +10,20 @@ def doIt(infile):
         n, k = int(n), int(k)
         a, b, c, r = f.readline().split(' ')
         a, b, c, r = int(a), int(b), int(c), int(r)
-#        print(n, k, a, b, c, r)
+        print(n, k, a, b, c, r)
 
         m = []
-        max = a
+        min = a
         m.append(a)
         for i in range(1, k):
             e = (b*m[i-1]+c)%r
             if min > e: min = e
             m.append(e)
-#        print(m)
+        print(m)
         m = set(m)
-        for i in range(n, k, -1):
-            if i not in m:
-                ans = i
-                break
+        all = set(range(n))
+        t = list(all.difference(m))
+        ans = t[n-k-1]
         print('Case #{0}: {1}'.format(i, ans))
 
 if __name__ == '__main__':
