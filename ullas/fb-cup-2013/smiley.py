@@ -13,7 +13,7 @@ def doIt(infile):
             print('Case #{0}: {1}'.format(i, 'YES'))
             continue
         if d.get(l[0])is not None: 
-            d[c] = 1
+            d[l[0]] = 1
 
         for j in range(1, len(l)):
             c = l[j]
@@ -21,7 +21,7 @@ def doIt(infile):
                 if l[j-1] != ':': d[c] = d.get(c) + 1
         if d['('] == d[')']: ans = 'YES'
         else: ans = 'NO'
-        
+        print(d)
         print('Case #{0}: {1}'.format(i, ans))
 
 if __name__ == '__main__':
