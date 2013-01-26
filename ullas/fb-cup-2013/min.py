@@ -7,12 +7,10 @@ def doIt(infile):
     f = open(infile)
     n = int(f.readline())
     for i in range(1,n+1):
-        #print('_____________________')
         n, k = f.readline().split(' ')
         n, k = int(n), int(k)
         a, b, c, r = f.readline().split(' ')
         a, b, c, r = int(a), int(b), int(c), int(r)
-        #print(n, k, a, b, c, r)
 
         m = [a]
         prev = a
