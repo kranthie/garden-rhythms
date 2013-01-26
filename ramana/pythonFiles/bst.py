@@ -198,3 +198,42 @@ for i in lls:
 
 print bst.successor(bst.root.left.left).data
 print bst.successor(bst.root).data
+
+def findLowestCommonAncestor(bst, n1, n2):
+ x = bst.root
+ y = n1
+ z = n2
+ if n1.data > n2.data:
+  y = n2
+  z = n1
+ while not (x.data >= y.data and x.data <= z.data):
+  if x.data <= y.data and x.data <= z.data:
+   x = x.right
+  else:
+   x = x.left
+ return x
+
+print findLowestCommonAncestor(bst, bst.root.left, bst.root.right).data
+print findLowestCommonAncestor(bst, bst.root.left.left, bst.root.left.right).data
+
+
+def sum(n, d):
+ #print n.data,
+ #print d
+ if n.data == d:
+  print d
+  return d
+ x = n.data
+ if n.data > d:
+  n = n.left
+ else:
+  n = n.right
+ x += sum(n, d)
+ print x
+ return x
+
+def sumAllPaths(bst, d):
+ sum(bst.root, d)
+
+print "Printing sums of all paths"
+sumAllPaths(bst, 7)
